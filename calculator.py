@@ -125,7 +125,10 @@ def joiner(joinerlist):
 	an_integer = int(a_string)
 	list1.append(an_integer)
 def show_answer():
-	label['text'] = list1[-1]
+	if len(list1) >= 1:
+		label['text'] = list1[-1]
+	else:
+		label['text'] = "answer"
 def clearer():
 	global initial
 	global pressed
@@ -134,7 +137,7 @@ def clearer():
 	list1.clear()
  
 root = Tk()
-root.geometry("300x600")
+root.geometry("300x250")
 btn1 = Button(root, text = "1", bd = "5", command=lambda : appender(1))
 btn2 = Button(root, text = "2", bd = "5", command=lambda : appender(2))
 btn3 = Button(root, text = "3", bd = "5", command=lambda : appender(3))
@@ -153,23 +156,23 @@ btn15 = Button(root, text = "=", bd = "7", command=show_answer)
 btn16 = Button(root, text = "AC", bd = "7", command=lambda : clearer())
 label = Label(root, text="answer")
 
-btn1.pack(side="top")
-btn2.pack(side="top")
-btn3.pack(side="top")
-btn4.pack(side="top")
-btn5.pack(side="top")
-btn6.pack(side="top")
-btn7.pack(side="top")
-btn8.pack(side="top")
-btn9.pack(side="top")
-btn10.pack(side="top")
-btn11.pack(side="top")
-btn12.pack(side="top")
-btn13.pack(side="top")
-btn14.pack(side="top")
-btn15.pack(side="top")
-btn16.pack(side="top")
-label.pack(side="top")
+btn1.grid(row = 0, column = 0)
+btn2.grid(row = 0, column = 1)
+btn3.grid(row= 0, column = 2)
+btn4.grid(row=1, column = 0)
+btn5.grid(row=1, column = 1)
+btn6.grid(row=1, column=2)
+btn7.grid(row=2, column=0)
+btn8.grid(row=2, column=1)
+btn9.grid(row=2, column=2)
+btn10.grid(row=3, column=1)
+btn11.grid(row=0, column=6)
+btn12.grid(row=0, column=7)
+btn13.grid(row=0, column=8)
+btn14.grid(row=1, column=7)
+btn15.grid(row=1, column=9)
+btn16.grid(row=0, column=9)
+label.grid(row=0, column=10)
 
 root.mainloop()
 
