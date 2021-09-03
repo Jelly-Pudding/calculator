@@ -125,9 +125,7 @@ def joiner(joinerlist):
 	an_integer = int(a_string)
 	list1.append(an_integer)
 def show_answer():
-	answer = list1[-1]
-	label = Label(root, text="{list1}".format(list1=answer))
-	label.pack()
+	label['text'] = list1[-1]
  
 root = Tk()
 root.geometry("300x600")
@@ -145,7 +143,7 @@ btn11 = Button(root, text = "+", bd = "5", command=lambda : add())
 btn12 = Button(root, text = "-", bd = "5", command=lambda : subtract())
 btn13 = Button(root, text = "/", bd = "5", command=lambda : divide())
 btn14 = Button(root, text = "=", bd = "7", command=show_answer)
-
+label = Label(root, text="answer")
 
 btn1.pack(side="top")
 btn2.pack(side="top")
@@ -161,7 +159,7 @@ btn11.pack(side="top")
 btn12.pack(side="top")
 btn13.pack(side="top")
 btn14.pack(side="top")
-
+label.pack(side="top")
 
 root.mainloop()
 
