@@ -18,11 +18,10 @@ def appender(num):
 	global subtraction
 	global division
 	global pressed
-	global joinnum
 	global afterdone
 	global initial
-	pressed = True
 	global last
+	pressed = True
 	list1.append(num)
 	if multiplication == True:
 		initial = False
