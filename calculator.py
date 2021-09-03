@@ -1,59 +1,52 @@
 from tkinter import *
 
 list1 = []
+joinerlist = []
 pressed = False
-multiply1 = False
+multiplication = False
 addition = False
 subtraction = False
 division = False
-joinerlist = []
-justdone = False
 afterdone = False
 initial = True
 last = 0
 
 
 def appender(num):
-	global multiply1
+	global multiplication
 	global addition
 	global subtraction
 	global division
 	global pressed
 	global joinnum
-	global justdone
 	global afterdone
 	global initial
-	global multiplycheck
 	pressed = True
 	global last
 	list1.append(num)
-	if multiply1 == True:
+	if multiplication == True:
 		initial = False
 		list1.append(list1[-1]*list1[-2])
-		multiply1 = False
-		justdone = True
-		afterdone = False
+		multiplication = False
+		afterdone = True
 		last = 0
 	elif addition == True:
 		initial = False
 		list1.append(list1[-1]+list1[-2])
 		addition = False
-		justdone = True
-		afterdone = False
+		afterdone = True
 		last = 1
 	elif subtraction == True:
 		initial = False
 		list1.append(list1[-2]-list1[-1])
 		subtraction = False
-		justdone = True
-		afterdone = False
+		afterdone = True
 		last = 2
 	elif division == True:
 		initial = False
 		list1.append(list1[-2]/list1[-1])
 		division = False
-		justdone = True
-		afterdone = False
+		afterdone = True
 		last = 3
 	elif initial == True:
 		if len(list1) >= 2:
@@ -63,24 +56,6 @@ def appender(num):
 			list1.pop(-1)
 			joiner(joinerlist)
 			joinerlist.clear()
-	elif justdone == True:
-		joinerlist.append(list1[-3])
-		joinerlist.append(num)
-		list1.pop(-1)
-		list1.pop(-1)
-		list1.pop(-1)
-		joiner(joinerlist)
-		joinerlist.clear()
-		justdone = False
-		afterdone = True
-		if last == 0:
-			list1.append(list1[-1]*list1[-2])
-		elif last == 1:
-			list1.append(list1[-1]+list1[-2])
-		elif last == 2:
-			list1.append(list1[-2]-list1[-1])
-		elif last == 3:
-			list1.append(list1[-2]/list1[-1])
 	elif afterdone == True:
 		joinerlist.append(list1[-3])
 		joinerlist.append(list1[-1])
@@ -101,26 +76,50 @@ def multiply():
 	if pressed == False:
 		pass
 	elif pressed == True:
-		global multiply1
-		multiply1 = True
+		global multiplication
+		global addition
+		global subtraction
+		global division
+		multiplication = True
+		addition = False
+		subtraction = False
+		division = False
 def add():
 	if pressed == False:
 		pass
 	elif pressed == True:
+		global multiplication
 		global addition
+		global subtraction
+		global division
+		multiplication = False
 		addition = True
+		subtraction = False
+		division = False
 def subtract():
-        if pressed == False:
-                pass
-        elif pressed == True:
-                global subtraction
-                subtraction = True
+	if pressed == False:
+		pass
+	elif pressed == True:
+		global multiplication
+		global addition
+		global subtraction
+		global division
+		multiplication = False
+		addition = False
+		subtraction = True
+		division = False
 def divide():
-        if pressed == False:
-                pass
-        elif pressed == True:
-                global division
-                division = True
+	if pressed == False:
+		pass
+	elif pressed == True:
+		global multiplication
+		global addition
+		global subtraction
+		global division
+		multiplication = False
+		addition = False
+		subtraction = False
+		division = True
 def joiner(joinerlist):
 	if len(joinerlist) >= 1:
 		strings = [str(integer) for integer in joinerlist]
