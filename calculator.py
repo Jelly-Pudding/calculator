@@ -126,6 +126,12 @@ def joiner(joinerlist):
 	list1.append(an_integer)
 def show_answer():
 	label['text'] = list1[-1]
+def clearer():
+	global initial
+	global pressed
+	initial = True
+	pressed = False
+	list1.clear()
  
 root = Tk()
 root.geometry("300x600")
@@ -138,11 +144,13 @@ btn6 = Button(root, text = "6", bd = "5", command=lambda : appender(6))
 btn7 = Button(root, text = "7", bd = "5", command=lambda : appender(7))
 btn8 = Button(root, text = "8", bd = "5", command=lambda : appender(8))
 btn9 = Button(root, text = "9", bd = "5", command=lambda : appender(9))
-btn10 = Button(root, text = "x", bd = "5", command=lambda : multiply())
-btn11 = Button(root, text = "+", bd = "5", command=lambda : add())
-btn12 = Button(root, text = "-", bd = "5", command=lambda : subtract())
-btn13 = Button(root, text = "/", bd = "5", command=lambda : divide())
-btn14 = Button(root, text = "=", bd = "7", command=show_answer)
+btn10 = Button(root, text = "0", bd = "5", command=lambda : appender(0))
+btn11 = Button(root, text = "x", bd = "5", command=lambda : multiply())
+btn12 = Button(root, text = "+", bd = "5", command=lambda : add())
+btn13 = Button(root, text = "-", bd = "5", command=lambda : subtract())
+btn14 = Button(root, text = "/", bd = "5", command=lambda : divide())
+btn15 = Button(root, text = "=", bd = "7", command=show_answer)
+btn16 = Button(root, text = "AC", bd = "7", command=lambda : clearer())
 label = Label(root, text="answer")
 
 btn1.pack(side="top")
@@ -159,6 +167,8 @@ btn11.pack(side="top")
 btn12.pack(side="top")
 btn13.pack(side="top")
 btn14.pack(side="top")
+btn15.pack(side="top")
+btn16.pack(side="top")
 label.pack(side="top")
 
 root.mainloop()
