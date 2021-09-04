@@ -8,6 +8,7 @@ addition = False
 subtraction = False
 division = False
 afterdone = False
+equals = False
 initial = True
 last = 0
 
@@ -19,11 +20,13 @@ def appender(num):
 	global division
 	global pressed
 	global afterdone
+	global equals
 	global initial
 	global last
 	pressed = True
 	list1.append(num)
 	if multiplication == True:
+		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-1]*list1[-2])
@@ -31,6 +34,7 @@ def appender(num):
 		afterdone = True
 		last = 0
 	elif addition == True:
+		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-1]+list1[-2])
@@ -38,6 +42,7 @@ def appender(num):
 		afterdone = True
 		last = 1
 	elif subtraction == True:
+		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-2]-list1[-1])
@@ -45,12 +50,19 @@ def appender(num):
 		afterdone = True
 		last = 2
 	elif division == True:
+		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-2]/list1[-1])
 		division = False
 		afterdone = True
 		last = 3
+	elif equals == True:
+		list1.clear()
+		list1.append(num)
+		show_answer()
+		initial = True
+		equals = False		
 	elif initial == True:
 		if len(list1) >= 2:
 			joinerlist.append(list1[-2])
@@ -137,6 +149,13 @@ def show_answer():
 		label['text'] = list1[-1]
 	else:
 		label['text'] = "answer"
+def equalsign():
+	global equals
+	equals = True
+	if len(list1) >= 1:
+		label['text'] = list1[-1]
+	else:
+		label['text'] = "answer"
 def clearer():
 	global initial
 	global pressed
@@ -161,7 +180,7 @@ btn11 = Button(root, text = "x", bd = "5", command=lambda : multiply())
 btn12 = Button(root, text = "+", bd = "5", command=lambda : add())
 btn13 = Button(root, text = "-", bd = "5", command=lambda : subtract())
 btn14 = Button(root, text = "/", bd = "5", command=lambda : divide())
-btn15 = Button(root, text = "=", bd = "5", command=show_answer)
+btn15 = Button(root, text = "=", bd = "5", command=equalsign)
 btn16 = Button(root, text = "C", bd = "5", command=lambda : clearer())
 label = Label(root, text="answer")
 
