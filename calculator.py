@@ -24,24 +24,28 @@ def appender(num):
 	pressed = True
 	list1.append(num)
 	if multiplication == True:
+		show_answer()
 		initial = False
 		list1.append(list1[-1]*list1[-2])
 		multiplication = False
 		afterdone = True
 		last = 0
 	elif addition == True:
+		show_answer()
 		initial = False
 		list1.append(list1[-1]+list1[-2])
 		addition = False
 		afterdone = True
 		last = 1
 	elif subtraction == True:
+		show_answer()
 		initial = False
 		list1.append(list1[-2]-list1[-1])
 		subtraction = False
 		afterdone = True
 		last = 2
 	elif division == True:
+		show_answer()
 		initial = False
 		list1.append(list1[-2]/list1[-1])
 		division = False
@@ -55,6 +59,9 @@ def appender(num):
 			list1.pop(-1)
 			joiner(joinerlist)
 			joinerlist.clear()
+			show_answer()
+		else:
+			show_answer()
 	elif afterdone == True:
 		joinerlist.append(list1[-3])
 		joinerlist.append(list1[-1])
@@ -63,6 +70,7 @@ def appender(num):
 		list1.pop(-1)
 		joiner(joinerlist)
 		joinerlist.clear()
+		show_answer()
 		if last == 0:
 			list1.append(list1[-1]*list1[-2])
 		elif last == 1:
@@ -135,9 +143,10 @@ def clearer():
 	initial = True
 	pressed = False
 	list1.clear()
+	show_answer()
  
 root = Tk()
-root.geometry("300x250")
+root.geometry("200x150")
 btn1 = Button(root, text = "1", bd = "5", command=lambda : appender(1))
 btn2 = Button(root, text = "2", bd = "5", command=lambda : appender(2))
 btn3 = Button(root, text = "3", bd = "5", command=lambda : appender(3))
@@ -152,8 +161,8 @@ btn11 = Button(root, text = "x", bd = "5", command=lambda : multiply())
 btn12 = Button(root, text = "+", bd = "5", command=lambda : add())
 btn13 = Button(root, text = "-", bd = "5", command=lambda : subtract())
 btn14 = Button(root, text = "/", bd = "5", command=lambda : divide())
-btn15 = Button(root, text = "=", bd = "7", command=show_answer)
-btn16 = Button(root, text = "AC", bd = "7", command=lambda : clearer())
+btn15 = Button(root, text = "=", bd = "5", command=show_answer)
+btn16 = Button(root, text = "C", bd = "5", command=lambda : clearer())
 label = Label(root, text="answer")
 
 btn1.grid(row = 0, column = 0)
@@ -168,11 +177,11 @@ btn9.grid(row=2, column=2)
 btn10.grid(row=3, column=1)
 btn11.grid(row=0, column=6)
 btn12.grid(row=0, column=7)
-btn13.grid(row=0, column=8)
-btn14.grid(row=1, column=7)
-btn15.grid(row=1, column=9)
-btn16.grid(row=0, column=9)
-label.grid(row=0, column=10)
+btn13.grid(row=1, column=7)
+btn14.grid(row=1, column=6)
+btn15.grid(row=1, column=8)
+btn16.grid(row=0, column=8)
+label.grid(row=1, column=9)
 
 root.mainloop()
 
