@@ -9,61 +9,88 @@ subtraction = False
 division = False
 afterdone = False
 equals = False
+decimal = False
+checker = False
+justdone = False
 initial = True
-last = 0
-
+last = 5
+count = 0
 
 def appender(num):
 	global multiplication
 	global addition
+	global decimal
 	global subtraction
 	global division
 	global pressed
 	global afterdone
 	global equals
+	global justdone
 	global initial
 	global last
+	global count
+	global checker
 	pressed = True
 	list1.append(num)
 	if multiplication == True:
+		count = 0
+		decimal = False
 		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-1]*list1[-2])
 		multiplication = False
 		afterdone = True
+		justdone = True
 		last = 0
 	elif addition == True:
+		count = 0
+		decimal = False
 		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-1]+list1[-2])
 		addition = False
 		afterdone = True
+		justdone = True
 		last = 1
 	elif subtraction == True:
+		count = 0
+		decimal = False
 		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-2]-list1[-1])
 		subtraction = False
 		afterdone = True
+		justdone = True
 		last = 2
 	elif division == True:
+		count = 0
+		decimal = False
 		equals = False
 		show_answer()
 		initial = False
 		list1.append(list1[-2]/list1[-1])
 		division = False
 		afterdone = True
+		justdone = True
 		last = 3
 	elif equals == True:
+		count = 0
+		checker = False
+		justdone = False
+		decimal = False
+		last = 5
 		list1.clear()
 		list1.append(num)
 		show_answer()
 		initial = True
 		equals = False		
 	elif initial == True:
+		count = 0
+		checker = False
+		decimal = False
 		if len(list1) >= 2:
 			joinerlist.append(list1[-2])
 			joinerlist.append(list1[-1])
@@ -75,6 +102,9 @@ def appender(num):
 		else:
 			show_answer()
 	elif afterdone == True:
+		count = 0
+		checker = False
+		decimal = False
 		joinerlist.append(list1[-3])
 		joinerlist.append(list1[-1])
 		list1.pop(-1)
@@ -91,6 +121,51 @@ def appender(num):
 			list1.append(list1[-2]-list1[-1])
 		elif last == 3:
 			list1.append(list1[-2]/list1[-1])
+	elif decimal == True:
+		if checker == True:
+			list1.pop(-2)
+		if justdone == False:
+			if count == 0:
+				count += 1
+				newitem = list1[-2] + (num * 0.1)
+				list1.pop(-1)
+				list1.pop(-1)
+				list1.append(newitem)
+			elif count == 1:
+				joinerlist.append(list1[-2])
+				joinerlist.append(num)
+				stringlist = [str(integer) for integer in joinerlist]
+				floater = float("".join(stringlist))
+				list1.pop(-1)
+				list1.pop(-1)
+				list1.append(floater)
+				joinerlist.clear()
+		elif justdone == True:
+			count += 1
+			justdone = False
+			newitem = list1[-3] + (num * 0.1)
+			list1.pop(-1)
+			list1.pop(-1)
+			list1.pop(-1)
+			list1.append(newitem)		
+		show_answer()
+		if last == 0:
+			checker = True
+			list1.append(list1[-1]*list1[-2])
+		elif last == 1:
+			checker = True
+			list1.append(list1[-1]+list1[-2])
+		elif last == 2:
+			checker = True
+			list1.append(list1[-2]-list1[-1])
+		elif last == 3:
+			checker = True
+			list1.append(list1[-2]/list1[-1])
+		
+
+
+
+		
 def multiply():
 	if pressed == False:
 		pass
@@ -151,6 +226,8 @@ def show_answer():
 		label['text'] = "answer"
 def equalsign():
 	global equals
+	global checker
+	checker = False
 	equals = True
 	if len(list1) >= 1:
 		label['text'] = list1[-1]
@@ -158,11 +235,23 @@ def equalsign():
 		label['text'] = "answer"
 def clearer():
 	global initial
+	global checker
 	global pressed
 	initial = True
+	checker = False
 	pressed = False
 	list1.clear()
 	show_answer()
+def dec():
+	global initial
+	global pressed
+	global decimal
+	global afterdone
+	initial = False
+	afterdone = False
+	if pressed == True:
+		decimal = True
+
  
 root = Tk()
 root.geometry("215x95")
@@ -184,6 +273,7 @@ btn13 = Button(root, text = "-", width = "1", bd = "5", command=lambda : subtrac
 btn14 = Button(root, text = "/", width = "1", bd = "5", command=lambda : divide())
 btn15 = Button(root, text = "=", width = "1", bd = "5", command=equalsign)
 btn16 = Button(root, text = "C", width = "1", bd = "5", command=lambda : clearer())
+btn17 = Button(root, text = ".", width = "1", bd = "5", command=lambda: dec())
 label = Label(root, text="answer", bg="black", fg="white", font="arial 12 bold")
 
 btn1.grid(row = 0, column = 0)
@@ -202,6 +292,7 @@ btn13.grid(row=1, column=7)
 btn14.grid(row=1, column=6)
 btn15.grid(row=1, column=8)
 btn16.grid(row=0, column=8)
+btn17.grid(row=3, column=3)
 label.grid(row=1, column=9)
 
 root.mainloop()
