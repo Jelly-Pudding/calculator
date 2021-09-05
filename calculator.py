@@ -127,7 +127,7 @@ def appender(num):
 		if justdone == False:
 			if count == 0:
 				count += 1
-				newitem = list1[-2] + (num * 0.1)
+				newitem = list1[-2] + round(num * 0.1, 2)
 				list1.pop(-1)
 				list1.pop(-1)
 				list1.append(newitem)
@@ -254,7 +254,7 @@ def dec():
 
  
 root = Tk()
-root.geometry("215x95")
+root.geometry("240x95")
 root.title("Calculator")
 root.configure(background="black")
 btn1 = Button(root, text = "1", width = "1", bd = "5", command=lambda : appender(1))
