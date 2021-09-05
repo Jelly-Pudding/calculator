@@ -244,13 +244,16 @@ def clearer():
 	show_answer()
 def dec():
 	global initial
+	global afterdone
 	global pressed
 	global decimal
-	global afterdone
-	initial = False
-	afterdone = False
 	if pressed == True:
 		decimal = True
+		initial = False
+		afterdone = False
+	elif pressed == False:
+		decimal = False
+		initial = True
 
  
 root = Tk()
