@@ -122,6 +122,8 @@ def appender(num):
 		elif last == 3:
 			list1.append(list1[-2]/list1[-1])
 	elif decimal == True:
+		if checker == True:
+			list1.pop(-2)
 		if justdone == False:
 			if count == 0:
 				count += 1
