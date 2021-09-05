@@ -122,8 +122,6 @@ def appender(num):
 		elif last == 3:
 			list1.append(list1[-2]/list1[-1])
 	elif decimal == True:
-		if checker == True:
-			list1.pop(-2)
 		if justdone == False:
 			if count == 0:
 				count += 1
@@ -143,7 +141,7 @@ def appender(num):
 		elif justdone == True:
 			count += 1
 			justdone = False
-			newitem = list1[-3] + (num * 0.1)
+			newitem = list1[-3] + round(num * 0.1, 2)
 			list1.pop(-1)
 			list1.pop(-1)
 			list1.pop(-1)
@@ -247,6 +245,17 @@ def dec():
 	global afterdone
 	global pressed
 	global decimal
+	global afterdone
+	if afterdone == False:
+		joinerlist.append(str(list1[-1]))
+		joinerlist.append(".")
+		label['text'] = "".join(joinerlist)
+		joinerlist.clear()
+	elif afterdone == True:
+		joinerlist.append(str(list1[-2]))
+		joinerlist.append(".")
+		label['text'] = "".join(joinerlist)
+		joinerlist.clear()
 	if pressed == True:
 		decimal = True
 		initial = False
