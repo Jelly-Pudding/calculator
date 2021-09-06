@@ -122,8 +122,6 @@ def appender(num):
 		elif last == 3:
 			list1.append(list1[-2]/list1[-1])
 	elif decimal == True:
-		if checker == True:
-			list1.pop(-2)
 		if justdone == False:
 			if count == 0:
 				count += 1
@@ -141,13 +139,23 @@ def appender(num):
 				list1.append(floater)
 				joinerlist.clear()
 		elif justdone == True:
-			count += 1
-			justdone = False
-			newitem = list1[-3] + round(num * 0.1, 2)
-			list1.pop(-1)
-			list1.pop(-1)
-			list1.pop(-1)
-			list1.append(newitem)		
+			if count == 0:
+				count += 1
+				newitem = list1[-3] + round(num * 0.1, 2)
+				list1.pop(-1)
+				list1.pop(-1)
+				list1.pop(-1)
+				list1.append(newitem)
+			elif count == 1:
+				joinerlist.append(list1[-3])
+				joinerlist.append(num)
+				stringlist = [str(integer) for integer in joinerlist]
+				floater = float("".join(stringlist))
+				list1.pop(-1)
+				list1.pop(-1)
+				list1.pop(-1)
+				list1.append(floater)
+				joinerlist.clear()
 		show_answer()
 		if last == 0:
 			checker = True
@@ -227,7 +235,8 @@ def show_answer():
 def equalsign():
 	global equals
 	global checker
-	checker = False
+	global justdone
+	justdone = False
 	equals = True
 	if len(list1) >= 1:
 		label['text'] = list1[-1]
@@ -235,10 +244,10 @@ def equalsign():
 		label['text'] = "answer"
 def clearer():
 	global initial
-	global checker
+	global justdone
 	global pressed
 	initial = True
-	checker = False
+	justdone = False
 	pressed = False
 	list1.clear()
 	show_answer()
