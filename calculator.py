@@ -157,23 +157,30 @@ def appender(num):
 				list1.append(floater)
 				joinerlist.clear()
 		show_answer()
-		if last == 0:
-			checker = True
-			list1.append(list1[-1]*list1[-2])
-		elif last == 1:
-			checker = True
-			list1.append(list1[-1]+list1[-2])
-		elif last == 2:
-			checker = True
-			list1.append(list1[-2]-list1[-1])
-		elif last == 3:
-			checker = True
-			list1.append(list1[-2]/list1[-1])
-		
-
-
-
-		
+		if last !=5:
+			joinerlist.append(list1[-1])
+			joinerlist.append(list1[-2])
+			stringlist = [str(integer) for integer in joinerlist]
+			if len(stringlist[-1]) >= len(stringlist[-2]):
+				if last == 0:
+					list1.append(round(list1[-1]*list1[-2], len(stringlist[-1])))
+				elif last == 1:
+					list1.append(round(list1[-1]+list1[-2], len(stringlist[-1])))
+				elif last == 2:
+					list1.append(round(list1[-2]-list1[-1], len(stringlist[-1])))
+				elif last == 3:
+					list1.append(round(list1[-2]/list1[-1], len(stringlist[-1])))
+			elif len(stringlist[-1]) < len(stringlist[-2]):
+				if last == 0:
+					list1.append(round(list1[-1]*list1[-2], len(stringlist[-2])))
+				elif last == 1:
+					list1.append(round(list1[-1]+list1[-2], len(stringlist[-2])))
+				elif last == 2:
+					list1.append(round(list1[-2]-list1[-1], len(stringlist[-2])))
+				elif last == 3:
+					list1.append(round(list1[-2]/list1[-1], len(stringlist[-2])))
+			joinerlist.clear()
+			stringlist.clear()		
 def multiply():
 	if pressed == False:
 		pass
@@ -246,6 +253,8 @@ def clearer():
 	global initial
 	global justdone
 	global pressed
+	global last
+	last = 5
 	initial = True
 	justdone = False
 	pressed = False
