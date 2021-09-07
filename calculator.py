@@ -11,6 +11,7 @@ afterdone = False
 equals = False
 decimal = False
 justdone = False
+justdecimal = False
 initial = True
 last = 5
 count = 0
@@ -26,6 +27,7 @@ def appender(num):
 	global equals
 	global justdone
 	global initial
+	global justdecimal
 	global last
 	global count
 	pressed = True
@@ -33,6 +35,7 @@ def appender(num):
 	if multiplication == True:
 		count = 0
 		decimal = False
+		justdecimal = False
 		equals = False
 		show_answer()
 		initial = False
@@ -44,6 +47,7 @@ def appender(num):
 	elif addition == True:
 		count = 0
 		decimal = False
+		justdecimal = False
 		equals = False
 		show_answer()
 		initial = False
@@ -55,6 +59,7 @@ def appender(num):
 	elif subtraction == True:
 		count = 0
 		decimal = False
+		justdecimal = False
 		equals = False
 		show_answer()
 		initial = False
@@ -66,6 +71,7 @@ def appender(num):
 	elif division == True:
 		count = 0
 		decimal = False
+		justdecimal = False
 		equals = False
 		show_answer()
 		initial = False
@@ -87,6 +93,7 @@ def appender(num):
 	elif initial == True:
 		count = 0
 		decimal = False
+		justdecimal = False
 		if len(list1) >= 2:
 			joinerlist.append(list1[-2])
 			joinerlist.append(list1[-1])
@@ -100,6 +107,7 @@ def appender(num):
 	elif afterdone == True:
 		count = 0
 		decimal = False
+		justdecimal = False
 		joinerlist.append(list1[-3])
 		joinerlist.append(list1[-1])
 		list1.pop(-1)
@@ -118,7 +126,15 @@ def appender(num):
 			list1.append(list1[-2]/list1[-1])
 	elif decimal == True:
 		if justdone == False:
-			if count == 0:
+			if justdecimal == True:
+				count += 1
+				newitem = 0 + round(num * 0.1, 2)
+				list1.pop(-1)
+				list1.append(newitem)
+				justdecimal = False
+				if last != 5:
+					justdone = True
+			elif count == 0:
 				count += 1
 				newitem = list1[-2] + round(num * 0.1, 2)
 				list1.pop(-1)
@@ -136,11 +152,17 @@ def appender(num):
 		elif justdone == True:
 			if count == 0:
 				count += 1
-				newitem = list1[-3] + round(num * 0.1, 2)
-				list1.pop(-1)
-				list1.pop(-1)
-				list1.pop(-1)
-				list1.append(newitem)
+				if justdecimal == True:
+					newitem = 0 + round(num * 0.1, 2)
+					list1.pop(-1)
+					list1.append(newitem)
+					justdecimal = False
+				else:
+					newitem = list1[-3] + round(num * 0.1, 2)
+					list1.pop(-1)
+					list1.pop(-1)
+					list1.pop(-1)
+					list1.append(newitem)
 			elif count == 1:
 				joinerlist.append(list1[-3])
 				joinerlist.append(num)
@@ -184,10 +206,16 @@ def multiply():
 		global addition
 		global subtraction
 		global division
+		global justdecimal
+		global last
+		global count
 		multiplication = True
 		addition = False
 		subtraction = False
 		division = False
+		justdecimal = True
+		last = 0
+		count = 0
 def add():
 	if pressed == False:
 		pass
@@ -196,10 +224,16 @@ def add():
 		global addition
 		global subtraction
 		global division
+		global justdecimal
+		global last
+		global count
 		multiplication = False
 		addition = True
 		subtraction = False
 		division = False
+		justdecimal = True
+		last = 1
+		count = 0
 def subtract():
 	if pressed == False:
 		pass
@@ -208,10 +242,16 @@ def subtract():
 		global addition
 		global subtraction
 		global division
+		global justdecimal
+		global last
+		global count
 		multiplication = False
 		addition = False
 		subtraction = True
 		division = False
+		justdecimal = True
+		last = 2
+		count = 0
 def divide():
 	if pressed == False:
 		pass
@@ -220,10 +260,16 @@ def divide():
 		global addition
 		global subtraction
 		global division
+		global justdecimal
+		global last
+		global count
 		multiplication = False
 		addition = False
 		subtraction = False
 		division = True
+		justdecimal = True
+		last = 3
+		count = 0
 def joiner(joinerlist):
 	strings = [str(integer) for integer in joinerlist]
 	a_string = "".join(strings)
@@ -237,6 +283,8 @@ def show_answer():
 def equalsign():
 	global equals
 	global justdone
+	global justdecimal
+	justdecimal = True
 	justdone = False
 	equals = True
 	if len(list1) >= 1:
@@ -248,10 +296,12 @@ def clearer():
 	global justdone
 	global pressed
 	global last
+	global justdecimal
 	last = 5
 	initial = True
 	justdone = False
 	pressed = False
+	justdecimal = True
 	list1.clear()
 	show_answer()
 def dec():
@@ -259,7 +309,24 @@ def dec():
 	global pressed
 	global decimal
 	global afterdone
-	if afterdone == False:
+	global justdecimal
+	global multiplication
+	global addition
+	global subtraction
+	global division
+	global equals
+	multiplication = False
+	addition = False
+	subtraction = False
+	division = False
+	equals = False
+	if pressed == False:
+		justdecimal = True
+		decimal = True
+		initial = False
+	if justdecimal == True:
+		label['text'] = "0."
+	elif afterdone == False:
 		joinerlist.append(str(list1[-1]))
 		joinerlist.append(".")
 		label['text'] = "".join(joinerlist)
@@ -273,9 +340,7 @@ def dec():
 		decimal = True
 		initial = False
 		afterdone = False
-	elif pressed == False:
-		decimal = False
-		initial = True
+
 
  
 root = Tk()
