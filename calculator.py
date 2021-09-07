@@ -10,7 +10,6 @@ division = False
 afterdone = False
 equals = False
 decimal = False
-checker = False
 justdone = False
 initial = True
 last = 5
@@ -29,7 +28,6 @@ def appender(num):
 	global initial
 	global last
 	global count
-	global checker
 	pressed = True
 	list1.append(num)
 	if multiplication == True:
@@ -78,7 +76,6 @@ def appender(num):
 		last = 3
 	elif equals == True:
 		count = 0
-		checker = False
 		justdone = False
 		decimal = False
 		last = 5
@@ -89,7 +86,6 @@ def appender(num):
 		equals = False		
 	elif initial == True:
 		count = 0
-		checker = False
 		decimal = False
 		if len(list1) >= 2:
 			joinerlist.append(list1[-2])
@@ -103,7 +99,6 @@ def appender(num):
 			show_answer()
 	elif afterdone == True:
 		count = 0
-		checker = False
 		decimal = False
 		joinerlist.append(list1[-3])
 		joinerlist.append(list1[-1])
@@ -241,7 +236,6 @@ def show_answer():
 		label['text'] = "answer"
 def equalsign():
 	global equals
-	global checker
 	global justdone
 	justdone = False
 	equals = True
@@ -262,7 +256,6 @@ def clearer():
 	show_answer()
 def dec():
 	global initial
-	global afterdone
 	global pressed
 	global decimal
 	global afterdone
