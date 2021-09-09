@@ -141,14 +141,30 @@ def appender(num):
 				list1.pop(-1)
 				list1.append(newitem)
 			elif count == 1:
-				joinerlist.append(list1[-2])
-				joinerlist.append(num)
-				stringlist = [str(integer) for integer in joinerlist]
-				floater = float("".join(stringlist))
-				list1.pop(-1)
-				list1.pop(-1)
-				list1.append(floater)
-				joinerlist.clear()
+				if num == 0:
+					if type(list1[-2]) == str:
+						anewstring = ""
+						anewstring += list1[-2]
+						anewstring += "0"
+						list1.pop(-1)
+						list1.pop(-1)
+						list1.append(anewstring)
+					else:
+						splitdecimal = str(list1[-2]).split(".")
+						wherezero = len(splitdecimal[-1]) + 1
+						stringforshow = format(list1[-2], '.{wherezero}f'.format(wherezero=wherezero))
+						list1.pop(-1)
+						list1.pop(-1)
+						list1.append(stringforshow)
+				elif num != 0:
+					joinerlist.append(list1[-2])
+					joinerlist.append(num)
+					stringlist = [str(integer) for integer in joinerlist]
+					floater = float("".join(stringlist))
+					list1.pop(-1)
+					list1.pop(-1)
+					list1.append(floater)
+					joinerlist.clear()
 		elif justdone == True:
 			if count == 0:
 				count += 1
@@ -164,15 +180,33 @@ def appender(num):
 					list1.pop(-1)
 					list1.append(newitem)
 			elif count == 1:
-				joinerlist.append(list1[-3])
-				joinerlist.append(num)
-				stringlist = [str(integer) for integer in joinerlist]
-				floater = float("".join(stringlist))
-				list1.pop(-1)
-				list1.pop(-1)
-				list1.pop(-1)
-				list1.append(floater)
-				joinerlist.clear()
+				if num == 0:
+					if type(list1[-3]) == str:
+						anewstring = ""
+						anewstring += list1[-3]
+						anewstring += "0"
+						list1.pop(-1)
+						list1.pop(-1)
+						list1.pop(-1)
+						list1.append(anewstring)
+					else:
+						splitdecimal = str(list1[-3]).split(".")
+						wherezero = len(splitdecimal[-1]) + 1
+						stringforshow = format(list1[-3], '.{wherezero}f'.format(wherezero=wherezero))
+						list1.pop(-1)
+						list1.pop(-1)
+						list1.pop(-1)
+						list1.append(stringforshow)
+				elif num != 0:
+					joinerlist.append(list1[-3])
+					joinerlist.append(num)
+					stringlist = [str(integer) for integer in joinerlist]
+					floater = float("".join(stringlist))
+					list1.pop(-1)
+					list1.pop(-1)
+					list1.pop(-1)
+					list1.append(floater)
+					joinerlist.clear()
 		show_answer()
 		if last !=5:
 			joinerlist.append(list1[-1])
@@ -180,22 +214,22 @@ def appender(num):
 			stringlist = [str(integer) for integer in joinerlist]
 			if len(stringlist[-1]) >= len(stringlist[-2]):
 				if last == 0:
-					list1.append(round(list1[-1]*list1[-2], len(stringlist[-1])))
+					list1.append(round(float(list1[-1])*float(list1[-2]), len(stringlist[-1])))
 				elif last == 1:
-					list1.append(round(list1[-1]+list1[-2], len(stringlist[-1])))
+					list1.append(round(float(list1[-1])+float(list1[-2]), len(stringlist[-1])))
 				elif last == 2:
-					list1.append(round(list1[-2]-list1[-1], len(stringlist[-1])))
+					list1.append(round(float(list1[-2])-float(list1[-1]), len(stringlist[-1])))
 				elif last == 3:
-					list1.append(round(list1[-2]/list1[-1], len(stringlist[-1])))
+					list1.append(round(float(list1[-2])/float(list1[-1]), len(stringlist[-1])))
 			elif len(stringlist[-1]) < len(stringlist[-2]):
 				if last == 0:
-					list1.append(round(list1[-1]*list1[-2], len(stringlist[-2])))
+					list1.append(round(float(list1[-1])*float(list1[-2]), len(stringlist[-2])))
 				elif last == 1:
-					list1.append(round(list1[-1]+list1[-2], len(stringlist[-2])))
+					list1.append(round(float(list1[-1])+float(list1[-2]), len(stringlist[-2])))
 				elif last == 2:
-					list1.append(round(list1[-2]-list1[-1], len(stringlist[-2])))
+					list1.append(round(float(list1[-2])-float(list1[-1]), len(stringlist[-2])))
 				elif last == 3:
-					list1.append(round(list1[-2]/list1[-1], len(stringlist[-2])))
+					list1.append(round(float(list1[-2])/float(list1[-1]), len(stringlist[-2])))
 			joinerlist.clear()
 			stringlist.clear()		
 def multiply():
